@@ -24,16 +24,19 @@ const AddUser = ( {setUsers} ) => {
     const isCorrect = {
         name: v.name ? v.name.length > 2 && isNaN(parseInt(v.name)) : null,
         surname: v.surname ? v.surname.length > 2 && isNaN(parseInt(v.surname)) : null,
-        age: v.age ? !isNaN(parseInt(v.age)) && parseInt(v.age) > 17 && parseInt(v.age) < 100: null
+        age: v.age ? !isNaN(parseInt(v.age)) && parseInt(v.age) > 17 && parseInt(v.age) < 100: null,
+        city: v.city ? true : null,
+        gender: v.gender ? true : null
     }
 
     const [messageToUser, setMessageToUser] = useState(null);
+    const [validation, setValidation] = useState(null);
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (isCorrect.name && isCorrect.surname && isCorrect.age) {
+        if (isCorrect.name && isCorrect.surname && isCorrect.age && isCorrect.city && isCorrect.gender) {
                
                fetch("https://retoolapi.dev/H0IDrh/data", { 
                     method: "POST",
@@ -53,13 +56,27 @@ const AddUser = ( {setUsers} ) => {
                             newUser
                         ]
                      });
-                     setMessageToUser("User successfull added");                  
+                    setValidation(null);
+                    setMessageToUser("User successfull added");
+                    document.querySelector("form").reset();
                 })
                 
                 .catch(err => {
                     console.log(err);
                 })
-        }     
+        }
+        
+        else { 
+            setValidation(
+                <ul style={{border: "1px solid red"}}>
+                    {isCorrect.name ? null : <li>Wprowadź poprawne imię.</li>}
+                    {isCorrect.surname ? null : <li>Wprowadź poprawne nazwisko.</li>}
+                    {isCorrect.age ? null : <li>Wpisz prawidłowy wiek. Zapisać mogą się tylko pełnoletni!</li>}
+                    {isCorrect.city ? null : <li>Wybierz miasto</li>}
+                    {isCorrect.gender ? null : <li>Wybierz płeć</li>}
+                </ul>
+                ) 
+        }
     }
 
 
@@ -86,11 +103,7 @@ const AddUser = ( {setUsers} ) => {
         </form>
         <div>
             <h2>{messageToUser}</h2>
-            <ul style={{border: "1px solid red"}}>
-                {isCorrect.name ? null : <li>Wprowadź poprawne imię.</li>}
-                {isCorrect.surname ? null : <li>Wprowadź poprawne nazwisko.</li>}
-                {isCorrect.age ? null : <li>Wpisz prawidłowy wiek. Zapisać mogą się tylko pełnoletni!</li>}
-            </ul>
+            {validation}
         </div>
     </section>
     )
