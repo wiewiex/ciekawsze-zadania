@@ -30,7 +30,7 @@ const AddUser = ( {setUsers} ) => {
     }
 
     const [messageToUser, setMessageToUser] = useState(null);
-    const [validation, setValidation] = useState(null);
+    const [startValidation, setStartValidation] = useState(null);
 
 
     const handleSubmit = (e) => {
@@ -56,7 +56,6 @@ const AddUser = ( {setUsers} ) => {
                             newUser
                         ]
                      });
-                    setValidation(null);
                     setMessageToUser("User successfull added");
                     document.querySelector("form").reset();
                 })
@@ -67,15 +66,7 @@ const AddUser = ( {setUsers} ) => {
         }
         
         else { 
-            setValidation(
-                <ul style={{border: "1px solid red"}}>
-                    {isCorrect.name ? null : <li>Wprowadź poprawne imię.</li>}
-                    {isCorrect.surname ? null : <li>Wprowadź poprawne nazwisko.</li>}
-                    {isCorrect.age ? null : <li>Wpisz prawidłowy wiek. Zapisać mogą się tylko pełnoletni!</li>}
-                    {isCorrect.city ? null : <li>Wybierz miasto</li>}
-                    {isCorrect.gender ? null : <li>Wybierz płeć</li>}
-                </ul>
-                ) 
+            setStartValidation(true)
         }
     }
 
@@ -103,7 +94,16 @@ const AddUser = ( {setUsers} ) => {
         </form>
         <div>
             <h2>{messageToUser}</h2>
-            {validation}
+            {startValidation ? (
+                <ul style={{border: "1px solid red"}}>
+                {isCorrect.name ? null : <li>Wprowadź poprawne imię.</li>}
+                {isCorrect.surname ? null : <li>Wprowadź poprawne nazwisko.</li>}
+                {isCorrect.age ? null : <li>Wpisz prawidłowy wiek. Zapisać mogą się tylko pełnoletni!</li>}
+                {isCorrect.city ? null : <li>Wybierz miasto</li>}
+                {isCorrect.gender ? null : <li>Wybierz płeć</li>}
+            </ul>
+            ) : null
+            }   
         </div>
     </section>
     )

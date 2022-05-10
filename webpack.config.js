@@ -1,5 +1,5 @@
 const path = require("path");
-const entryPath = "kalkulator";
+const entryPath = "walidacja danych i dodawanie usera do db";
 
 module.exports = {
     entry: `./${entryPath}/js/app.js`,
