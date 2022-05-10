@@ -5,6 +5,7 @@ class DecCalculator extends Calculator {
     changeNumber(root) {
         const input = root.firstElementChild;
         input.setAttribute("contenteditable", "true");
+        input.innerText = "";
         input.focus();
     }
 
