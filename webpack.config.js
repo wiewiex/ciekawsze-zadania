@@ -1,5 +1,5 @@
 const path = require("path");
-const entryPath = "lista to-do";
+const entryPath = ".";
 
 module.exports = {
     entry: `./${entryPath}/js/app.js`,
