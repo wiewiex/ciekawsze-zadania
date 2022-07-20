@@ -6,11 +6,11 @@ const showPreview = (e) => {
     const currentSrc = e.target.children[0];
 
     if (previewIframe.src) {
-        previewIframe.src =  currentSrc ? currentSrc : currentSrc;
+        currentSrc ? previewIframe.src =  currentSrc : setTimeout(previewIframe.src =  currentSrc, 3000);        
     }
 
     else {
-        previewIframe.setAttribute("src", currentSrc ? currentSrc : currentSrc);
+        currentSrc ? previewIframe.setAttribute("src", currentSrc) : setTimeout(previewIframe.setAttribute("src", currentSrc), 3000);
     }
 }
 
