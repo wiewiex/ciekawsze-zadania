@@ -40,3 +40,24 @@ a {
     height: 90vh;
     border: none;
 }
+
+@media screen and (max-width: 1200px) {
+    body {
+        overflow-y: auto;
+        height: 100vh;
+        box-sizing: border-box;
+    }
+
+    main {
+        width: 100%;
+    }
+
+    ul {
+       padding: 0;
+       margin: 0;
+    }
+
+    .preview {
+        display: none;
+    }    
+}
